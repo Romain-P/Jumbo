@@ -28,5 +28,6 @@ public class LoginDefaultModule extends AbstractModule {
 
         Worker worker = Workers.wrap(new ImprovedCachedThreadPool(5, 10, 10));
         bind(EventBus.class).toInstance(CoreEventBus.create(worker));
+        bind(LoginManager.class).asEagerSingleton();
     }
 }
