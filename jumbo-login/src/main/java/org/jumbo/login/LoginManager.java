@@ -21,7 +21,7 @@ public class LoginManager {
     @Inject @LoginNetwork
     NetworkService loginNetwork;
 
-    public void start() {
+    public LoginManager start() {
         log.info("Initializing : login network");
 
         try {
@@ -31,6 +31,8 @@ public class LoginManager {
             System.exit(1);
         }
 
+        log.info("Initializing : game network");
+
         try {
             gameNetwork.start(config.getString("login.network.game.ip"), config.getInt("login.network.game.port"));
         } catch (IOException e) {
@@ -39,9 +41,14 @@ public class LoginManager {
         }
 
         log.info("Login started successfully!");
+        return this;
     }
 
     public void stop() {
+        log.info("Stopping networks..");
+        gameNetwork.stop();
+        loginNetwork.stop();
 
+        log.info("Server stopped successfully");
     }
 }

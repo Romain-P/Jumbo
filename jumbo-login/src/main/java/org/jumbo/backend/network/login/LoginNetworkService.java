@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
 public class LoginNetworkService extends NetworkAcceptor{
     @Override
     protected void configure() {
-        acceptor.getFilterChain().addLast("game-codec-filter",
+        acceptor.getFilterChain().addLast("login-codec-filter",
             new ProtocolCodecFilter(
             new TextLineCodecFactory(Charset.forName("UTF8"), LineDelimiter.NUL,
             new LineDelimiter("\n\0"))));
