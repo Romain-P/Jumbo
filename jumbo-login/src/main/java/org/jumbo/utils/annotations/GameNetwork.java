@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @BindingAnnotation
-@Target(ElementType.LOCAL_VARIABLE)
+@Target(ElementType.FIELD)
 public @interface GameNetwork {}
