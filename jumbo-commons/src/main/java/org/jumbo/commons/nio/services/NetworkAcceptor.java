@@ -20,6 +20,7 @@ public abstract class NetworkAcceptor extends NetworkService {
 
     @Override
     public boolean start(String ip, int port) throws IOException {
+        configure();
         acceptor.bind(new InetSocketAddress(ip, port));
         return acceptor.isActive();
     }

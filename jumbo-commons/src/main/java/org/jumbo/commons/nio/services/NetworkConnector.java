@@ -20,6 +20,7 @@ public abstract class NetworkConnector extends NetworkService {
 
     @Override
     public boolean start(String ip, int port) throws IOException {
+        configure();
         return connector.connect(new InetSocketAddress(ip, port)).isConnected();
     }
 
