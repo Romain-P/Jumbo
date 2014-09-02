@@ -1,1 +1,11 @@
 apply plugin: 'application'
+
+ext.acara = '1.3'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "com.github.blackrush.acara:acara-core:$acara"
+}
