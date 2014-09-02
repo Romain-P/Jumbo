@@ -1,0 +1,38 @@
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+
+    ext.lombok = '1.14.0'
+    ext.guice = '3.0'
+    ext.guicem = '3.0'
+    ext.slf4j = '1.7.7'
+    ext.logback = '1.1.2'
+
+    configurations {
+        provided
+    }
+
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        provided "org.projectlombok:lombok:$lombok"
+        compile "com.google.inject:guice:$guice"
+        compile "com.google.inject.extensions:guice-multibindings:$guicem"
+        compile "org.slf4j:slf4j-api:$slf4j"
+        compile "ch.qos.logback:logback-classic:$logback"
+    }
+
+    sourceSets {
+        main { compileClasspath += configurations.provided }
+    }
+
+    idea { module { scopes.PROVIDED.plus += configurations.provided } }
+}

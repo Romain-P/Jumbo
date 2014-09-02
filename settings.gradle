@@ -1,0 +1,5 @@
+rootProject.name = 'Jumbo'
+
+include 'jumbo-login'
+include 'shivas-utils'
+
