@@ -16,9 +16,8 @@ public class ImprovedCachedThreadPool extends ThreadPoolExecutor{
     }
 
     public void execute(Runnable task) {
-        if(getActiveCount() >= super.getMaximumPoolSize() - 2 && super.getQueue().size() >= maxInQueue) {
-            setCorePoolSize(super.getMaximumPoolSize()+1);
-            setMaximumPoolSize(super.getMaximumPoolSize()+1);
+        if(getActiveCount() >= getMaximumPoolSize() - 2 && getQueue().size() >= maxInQueue) {
+            setMaximumPoolSize(getMaximumPoolSize()+1);
         }
         super.execute(task);
     }
