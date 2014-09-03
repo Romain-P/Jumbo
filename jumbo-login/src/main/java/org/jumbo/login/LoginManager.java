@@ -61,6 +61,7 @@ public class LoginManager {
         log.info("Stopping networks..");
         gameNetwork.stop();
         loginNetwork.stop();
+        database.stop();
 
         log.info("Server stopped successfully");
     }
