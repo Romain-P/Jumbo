@@ -1,6 +1,6 @@
-package org.jumbo.backend.database.models;
+package org.jumbo.database.models;
 
-import org.jumbo.backend.database.example.Example;
+import org.jumbo.database.example.Example;
 import org.jumbo.commons.sql.model.QueryModel;
 
 import java.util.HashMap;

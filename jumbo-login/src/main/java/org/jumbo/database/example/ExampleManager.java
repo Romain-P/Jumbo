@@ -1,7 +1,7 @@
-package org.jumbo.backend.database.example;
+package org.jumbo.database.example;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jumbo.backend.database.models.ExampleModel;
+import org.jumbo.database.models.ExampleModel;
 import org.jumbo.commons.sql.QueryManager;
 import org.jumbo.commons.sql.model.Query;
 import org.jumbo.commons.sql.model.enums.OnlyExecuteQueryEnum;

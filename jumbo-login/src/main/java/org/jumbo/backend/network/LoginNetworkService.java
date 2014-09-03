@@ -1,4 +1,4 @@
-package org.jumbo.backend.network.login;
+package org.jumbo.backend.network;
 
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.textline.LineDelimiter;

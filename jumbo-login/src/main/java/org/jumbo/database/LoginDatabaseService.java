@@ -1,7 +1,6 @@
-package org.jumbo.backend.database;
+package org.jumbo.database;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.typesafe.config.Config;
 import lombok.Getter;
 import org.jumbo.api.login.database.DatabaseService;

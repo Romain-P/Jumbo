@@ -1,4 +1,4 @@
-package org.jumbo.backend.database.example;
+package org.jumbo.database.example;
 
 import com.google.inject.Inject;
 import lombok.Getter;
