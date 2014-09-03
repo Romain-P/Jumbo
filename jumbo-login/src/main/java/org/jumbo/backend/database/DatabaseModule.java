@@ -3,6 +3,7 @@ package org.jumbo.backend.database;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 import org.jumbo.api.login.database.DatabaseService;
+import org.jumbo.backend.database.example.ExampleManager;
 import org.jumbo.commons.sql.QueryManager;
 
 /**
@@ -13,6 +14,6 @@ public class DatabaseModule extends AbstractModule {
     protected void configure() {
         bind(DatabaseService.class).to(LoginDatabaseService.class).asEagerSingleton();
         Multibinder<QueryManager> managers = Multibinder.newSetBinder(binder(), QueryManager.class);
-        //TODO: adding someone
+        managers.addBinding().to(ExampleManager.class);
     }
 }

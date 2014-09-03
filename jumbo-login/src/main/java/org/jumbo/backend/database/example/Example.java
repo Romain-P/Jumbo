@@ -1,6 +1,8 @@
 package org.jumbo.backend.database.example;
 
+import com.google.inject.Inject;
 import lombok.Getter;
+import org.jumbo.api.login.database.DatabaseService;
 import org.jumbo.commons.sql.model.annotations.PrimaryQueryField;
 import org.jumbo.commons.sql.model.annotations.QueryField;
 
@@ -18,11 +20,18 @@ public class Example {
     @QueryField
     private String objective;
 
+    @Inject
+    DatabaseService database;
+
     public Example() {}
 
     public Example(int id, String name, String objective) {
         this.id = id;
         this.name = name;
         this.objective = objective;
+    }
+
+    public void save() {
+        database.getQueryManagers().get(getClass()).update(this);
     }
 }

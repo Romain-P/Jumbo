@@ -28,13 +28,7 @@ public class ExampleManager extends QueryManager<Example> {
                     .setData("objective", obj.getObjective());
 
             execute(query, OnlyExecuteQueryEnum.CREATE);
-        } catch (BadPutFieldTypeException exception) {
-            log.error(exception.getMessage());
-            return false;
-        } catch (SQLException exception) {
-            log.error(exception.getMessage());
-            return false;
-        } catch (BadQueryFormationException exception) {
+        } catch (Exception exception) {
             log.error(exception.getMessage());
             return false;
         }
@@ -45,13 +39,7 @@ public class ExampleManager extends QueryManager<Example> {
     public boolean delete(Example obj) {
         try {
             execute(model, obj.getId(), OnlyExecuteQueryEnum.CREATE);
-        } catch (BadPutFieldTypeException exception) {
-            log.error(exception.getMessage());
-            return false;
-        } catch (SQLException exception) {
-            log.error(exception.getMessage());
-            return false;
-        } catch (BadQueryFormationException exception) {
+        } catch (Exception exception) {
             log.error(exception.getMessage());
             return false;
         }
@@ -67,13 +55,7 @@ public class ExampleManager extends QueryManager<Example> {
                     .setData("objective", obj.getObjective());
 
             execute(query, OnlyExecuteQueryEnum.UPDATE);
-        } catch (BadPutFieldTypeException exception) {
-            log.error(exception.getMessage());
-            return false;
-        } catch (SQLException exception) {
-            log.error(exception.getMessage());
-            return false;
-        } catch (BadQueryFormationException exception) {
+        } catch (Exception exception) {
             log.error(exception.getMessage());
             return false;
         }
