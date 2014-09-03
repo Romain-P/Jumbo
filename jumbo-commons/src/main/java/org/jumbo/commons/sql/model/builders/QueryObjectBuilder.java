@@ -10,12 +10,12 @@ import java.sql.SQLException;
  * Created by Return on 03/09/2014.
  */
 public class QueryObjectBuilder {
-    public static Query newQuery(QueryModel model, ResultSet result) throws SQLException {
+    public static Query newQuery(QueryModel<?> model, ResultSet result) throws SQLException {
         Query query = model.createNewQuery();
 
         if(result.next())
-            for(Object column: model.getColumns().keySet())
-                query.getData().put((String) column, result.getObject((String)column));
+            for(String column: model.getColumns().keySet())
+                query.getData().put(column, result.getObject(column));
 
         return query;
     }

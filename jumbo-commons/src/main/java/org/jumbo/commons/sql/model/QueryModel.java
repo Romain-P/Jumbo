@@ -10,20 +10,22 @@ import java.util.*;
 /**
  * Created by Return on 03/09/2014.
  */
-public class QueryModel<T> {
+public abstract class QueryModel<T> {
     @Getter
     private final String tableName;
     @Getter
     private String primaryKeyName;
     private final T schema;
     @Getter
-    private final Map<String, Class> columns;
+    private final Map<String, QueryColumn> columns;
 
     public QueryModel(String tableName, T schema) {
         this.tableName = tableName;
         this.schema = schema;
         this.columns = new HashMap<>();
     }
+
+    public abstract Map<String, String> getColumnModel();
 
     public QueryModel schematize() {
         for(Field field: schema.getClass().getDeclaredFields()) {
@@ -34,8 +36,10 @@ public class QueryModel<T> {
                 primary = true;
             }
 
-            if(field.isAnnotationPresent(QueryField.class) || primary)
-                columns.put(field.getName(), field.getType());
+            if(field.isAnnotationPresent(QueryField.class) || primary) {
+                String fieldName = field.getName();
+                columns.put(fieldName, new QueryColumn(fieldName, getColumnModel().get(fieldName), field.getType()));
+            }
         }
         return this;
     }

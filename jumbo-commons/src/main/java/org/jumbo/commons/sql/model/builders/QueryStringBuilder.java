@@ -73,7 +73,7 @@ public class QueryStringBuilder {
             else
                 built.append(",");
 
-            built.append("`").append(entry.getKey()).append("` = ");
+            built.append("`").append(query.getModel().getColumns().get(entry.getKey()).getColumnName()).append("` = ");
 
             Object value = entry.getValue();
             if(value instanceof String)

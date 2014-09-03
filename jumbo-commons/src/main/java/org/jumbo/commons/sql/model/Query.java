@@ -14,7 +14,7 @@ public class Query {
     @Getter
     private final Map<String, Object> data;
     @Getter
-    private final QueryModel model;
+    private final QueryModel<?> model;
 
     public Query(QueryModel model) {
         this.model = model;
@@ -22,7 +22,7 @@ public class Query {
     }
 
     public Query setData(String column, Object data) throws NullPointerException, BadPutFieldTypeException {
-        Class type = (Class) model.getColumns().get(column);
+        Class type = model.getColumns().get(column).getType();
 
         if(type == null)
             throw new NullPointerException(String.format("QueryModel's column not found: %s", column));
