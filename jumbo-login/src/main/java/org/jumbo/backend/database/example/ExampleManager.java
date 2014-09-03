@@ -36,7 +36,7 @@ public class ExampleManager extends QueryManager<Example> {
     @Override
     public boolean delete(Example obj) {
         try {
-            execute(model, obj.getId(), OnlyExecuteQueryEnum.CREATE);
+            execute(model, obj.getId(), OnlyExecuteQueryEnum.DELETE);
         } catch (Exception exception) {
             log.error(exception.getMessage());
             return false;
