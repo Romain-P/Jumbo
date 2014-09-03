@@ -1,11 +1,9 @@
 package org.jumbo.backend.database.example;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jumbo.backend.database.models.ExampleModel;
 import org.jumbo.commons.sql.QueryManager;
-import org.jumbo.commons.sql.exceptions.BadPutFieldTypeException;
-import org.jumbo.commons.sql.exceptions.BadQueryFormationException;
 import org.jumbo.commons.sql.model.Query;
-import org.jumbo.commons.sql.model.QueryModel;
 import org.jumbo.commons.sql.model.enums.OnlyExecuteQueryEnum;
 
 import java.sql.SQLException;
@@ -16,7 +14,7 @@ import java.sql.SQLException;
 @Slf4j
 public class ExampleManager extends QueryManager<Example> {
     public ExampleManager() {
-        super(new QueryModel<>("example", new Example()).schematize());
+        super(new ExampleModel());
     }
 
     @Override
