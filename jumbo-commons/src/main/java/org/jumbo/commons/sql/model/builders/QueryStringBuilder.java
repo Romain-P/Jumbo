@@ -3,6 +3,7 @@ package org.jumbo.commons.sql.model.builders;
 import org.jumbo.commons.sql.exceptions.BadQueryFormationException;
 import org.jumbo.commons.sql.model.Query;
 import org.jumbo.commons.sql.model.QueryModel;
+import org.jumbo.commons.sql.model.enums.OnlyExecuteQueryEnum;
 
 import java.util.Map;
 
@@ -11,8 +12,9 @@ import java.util.Map;
  */
 public class QueryStringBuilder {
 
-    public static String newQuery(Query query, Object primary, QueryStringBuildTypeEnum type) throws BadQueryFormationException {
-        String primaryKey = primary instanceof String ? "'"+primary+"'" : (String) primary;
+    public static String newQuery(Query query, OnlyExecuteQueryEnum type) throws BadQueryFormationException {
+        Object primary = query.getData().get(query.getModel().getPrimaryKeyName());
+        Object primaryKey = primary instanceof String ? "'"+primary+"'" :  primary;
 
         switch(type) {
             case CREATE:
@@ -27,7 +29,7 @@ public class QueryStringBuilder {
     }
 
     public static String newQuery(QueryModel model, Object primary) {
-        String primaryKey = primary instanceof String ? "'"+primary+"'" : (String) primary;
+        Object primaryKey = primary instanceof String ? "'"+primary+"'" : primary;
         return String.format(newLoadQuery(model), primaryKey);
     }
 

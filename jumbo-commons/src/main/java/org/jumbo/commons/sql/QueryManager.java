@@ -2,11 +2,12 @@ package org.jumbo.commons.sql;
 
 import com.google.inject.Inject;
 import org.jumbo.api.login.database.DatabaseService;
+import org.jumbo.commons.sql.exceptions.BadPutFieldTypeException;
 import org.jumbo.commons.sql.exceptions.BadQueryFormationException;
 import org.jumbo.commons.sql.model.Query;
 import org.jumbo.commons.sql.model.QueryModel;
 import org.jumbo.commons.sql.model.builders.QueryObjectBuilder;
-import org.jumbo.commons.sql.model.builders.QueryStringBuildTypeEnum;
+import org.jumbo.commons.sql.model.enums.OnlyExecuteQueryEnum;
 import org.jumbo.commons.sql.model.builders.QueryStringBuilder;
 
 import java.sql.*;
@@ -14,19 +15,26 @@ import java.sql.*;
 /**
  * Created by Return on 03/09/2014.
  */
-public abstract class QueryManager implements DAO {
+public abstract class QueryManager<T> implements DAO<T> {
+    protected QueryModel model;
     @Inject
     DatabaseService database;
 
-    protected abstract QueryModel defaultQueryModel();
+    public QueryManager(QueryModel model) {
+        this.model = model;
+    }
 
-    protected void execute(Query query, Object primary, QueryStringBuildTypeEnum type) throws SQLException, BadQueryFormationException {
+    protected void execute(QueryModel model, Object primary, OnlyExecuteQueryEnum type) throws SQLException, BadQueryFormationException, BadPutFieldTypeException {
+        execute(model.createNewQuery().setData(model.getPrimaryKeyName(), primary), type);
+    }
+
+    protected void execute(Query query, OnlyExecuteQueryEnum type) throws SQLException, BadQueryFormationException {
         database.getLocker().lock();
 
         try {
             database.getConnection().setAutoCommit(false);
             Statement statement = database.getConnection().createStatement();
-            statement.execute(QueryStringBuilder.newQuery(query, primary, type));
+            statement.execute(QueryStringBuilder.newQuery(query, type));
             statement.close();
             database.getConnection().commit();
         } catch (SQLException exception) {
@@ -41,16 +49,16 @@ public abstract class QueryManager implements DAO {
     protected Query createNewQuery(Object primary) throws SQLException {
         database.getLocker().lock();
 
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         Query query = null;
         try {
             database.getConnection().setAutoCommit(false);
             resultSet = database.getConnection().createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery(QueryStringBuilder.newQuery(defaultQueryModel(), primary));
+                    ResultSet.CONCUR_READ_ONLY).executeQuery(QueryStringBuilder.newQuery(model, primary));
             database.getConnection().commit();
 
-            query = QueryObjectBuilder.newQuery(defaultQueryModel(), resultSet);
+            query = QueryObjectBuilder.newQuery(model, resultSet);
             resultSet.getStatement().close();
             resultSet.close();
         } catch(SQLException exception) {

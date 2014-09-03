@@ -26,9 +26,7 @@ public class QueryModel<T> {
     }
 
     public QueryModel schematize() {
-        List<Field> fields = Arrays.asList(schema.getClass().getDeclaredFields());
-
-        for(Field field: fields) {
+        for(Field field: schema.getClass().getDeclaredFields()) {
             boolean primary = false;
 
             if(field.isAnnotationPresent(PrimaryQueryField.class)) {
