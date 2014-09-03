@@ -10,8 +10,6 @@ public class Main {
         Injector injector = Guice.createInjector(new LoginDefaultModule(), new LoginNetworkModule(), new DatabaseModule());
         final LoginManager manager = injector.getInstance(LoginManager.class).start();
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            manager.stop();
-        }));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> manager.stop()));
     }
 }
