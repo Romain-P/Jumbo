@@ -26,8 +26,6 @@ public class LoginDatabaseService implements DatabaseService {
     private Map<Class, QueryManager> queryManagers;
 
     @Inject
-    Injector injector;
-    @Inject
     Config config;
     @Inject
     Set<QueryManager> managers;

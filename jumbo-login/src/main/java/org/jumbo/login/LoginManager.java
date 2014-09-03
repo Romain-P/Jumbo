@@ -9,6 +9,7 @@ import org.jumbo.utils.annotations.GameNetwork;
 import org.jumbo.utils.annotations.LoginNetwork;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by Return on 02/09/2014.
@@ -27,7 +28,12 @@ public class LoginManager {
     public LoginManager start() {
         log.info("Initializing : login database");
 
-
+        try {
+            database.start();
+        } catch (SQLException e) {
+            log.info(String.format("SQLException when trying to starting database: %s", e.getMessage()));
+            System.exit(1);
+        }
 
         log.info("Initializing : login network");
 
