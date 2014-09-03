@@ -4,9 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.typesafe.config.Config;
 import lombok.Getter;
+import org.jumbo.api.login.database.DatabaseService;
 import org.jumbo.commons.sql.QueryManager;
-import org.jumbo.commons.sql.DatabaseService;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by Return on 03/09/2014.
  */
-public class LoginDatabaseService implements DatabaseService{
+public class LoginDatabaseService implements DatabaseService {
     @Getter
     private final ReentrantLock locker;
     @Getter
@@ -53,7 +52,7 @@ public class LoginDatabaseService implements DatabaseService{
         return this;
     }
 
-    public void close() {
+    public void stop() {
         try {
             connection.close();
         } catch(SQLException exception){}

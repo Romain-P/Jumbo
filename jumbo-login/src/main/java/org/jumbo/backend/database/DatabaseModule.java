@@ -2,8 +2,8 @@ package org.jumbo.backend.database;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
+import org.jumbo.api.login.database.DatabaseService;
 import org.jumbo.commons.sql.QueryManager;
-import org.jumbo.commons.sql.DatabaseService;
 
 /**
  * Created by Return on 03/09/2014.

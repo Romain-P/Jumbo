@@ -1,6 +1,7 @@
 package org.jumbo.commons.sql;
 
 import com.google.inject.Inject;
+import org.jumbo.api.login.database.DatabaseService;
 import org.jumbo.commons.sql.exceptions.BadQueryFormationException;
 import org.jumbo.commons.sql.model.Query;
 import org.jumbo.commons.sql.model.QueryModel;
