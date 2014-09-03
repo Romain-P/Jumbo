@@ -2,7 +2,7 @@ package org.jumbo.login;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.jumbo.backend.network.LoginNetworkModule;
+import org.jumbo.frontend.network.LoginNetworkModule;
 import org.jumbo.database.DatabaseModule;
 
 public class Main {

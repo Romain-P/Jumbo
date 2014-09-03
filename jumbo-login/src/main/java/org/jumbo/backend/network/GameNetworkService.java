@@ -1,4 +1,4 @@
-package org.jumbo.frontend.network;
+package org.jumbo.backend.network;
 
 import org.jumbo.commons.nio.services.NetworkConnector;
 
