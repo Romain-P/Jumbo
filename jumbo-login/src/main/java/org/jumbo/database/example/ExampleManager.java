@@ -14,7 +14,7 @@ import java.sql.SQLException;
 @Slf4j
 public class ExampleManager extends QueryManager<Example> {
     public ExampleManager() {
-        super(new ExampleModel());
+        super(new ExampleModel().schematize());
     }
 
     @Override
