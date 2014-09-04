@@ -21,7 +21,7 @@ public class Query {
         this.data = new HashMap<>();
     }
 
-    public Query setData(String column, Object data) throws NullPointerException, BadPutFieldTypeException {
+    public Query setData(String column, Object data) throws NullPointerException {
         Class type = model.getColumns().get(column).getType();
 
         if(type == null)
@@ -33,7 +33,7 @@ public class Query {
         return this;
     }
 
-    public boolean checkFormation() throws BadQueryFormationException {
+    public boolean checkFormation() {
         int size = model.getColumns().size() - data.size();
 
         if(size != 0)

@@ -2,8 +2,6 @@ package org.jumbo.commons.sql;
 
 import com.google.inject.Inject;
 import org.jumbo.api.login.database.DatabaseService;
-import org.jumbo.commons.sql.exceptions.BadPutFieldTypeException;
-import org.jumbo.commons.sql.exceptions.BadQueryFormationException;
 import org.jumbo.commons.sql.model.Query;
 import org.jumbo.commons.sql.model.QueryModel;
 import org.jumbo.commons.sql.model.builders.QueryObjectBuilder;
@@ -24,11 +22,11 @@ public abstract class QueryManager<T> implements DAO<T> {
         this.model = model;
     }
 
-    protected void execute(QueryModel model, Object primary, OnlyExecuteQueryEnum type) throws SQLException, BadQueryFormationException, BadPutFieldTypeException {
+    protected void execute(QueryModel model, Object primary, OnlyExecuteQueryEnum type) throws SQLException {
         execute(model.createNewQuery().setData(model.getPrimaryKeyName(), primary), type);
     }
 
-    protected void execute(Query query, OnlyExecuteQueryEnum type) throws SQLException, BadQueryFormationException {
+    protected void execute(Query query, OnlyExecuteQueryEnum type) throws SQLException {
         database.getLocker().lock();
 
         try {
