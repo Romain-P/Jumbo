@@ -22,7 +22,7 @@ public interface QueryStringBuilder {
             case CREATE:
                 return newCreateQuery(query, connection);
             case UPDATE:
-                return String.format(newUpdateQuery(query, connection), primaryKey);
+                return newUpdateQuery(query, primaryKey, connection);
             case DELETE:
                 return String.format(newDeleteQuery(query.getModel()), connection, primaryKey);
             default:
@@ -40,41 +40,36 @@ public interface QueryStringBuilder {
 
         Map<String, Object> data = query.getData();
 
-        StringBuilder built = new StringBuilder("INSERT INTO ");
+        StringBuilder built = new StringBuilder("INSERT INTO "), others = new StringBuilder();
         built.append(query.getModel().getTableName()).append(" (");
 
         boolean first = true;
         for(String column: data.keySet()) {
             if(first)
                 first = false;
-            else
+            else {
                 built.append(",");
+                others.append(",");
+            }
 
             built.append("`").append(query.getModel().getColumns().get(column).getColumnName()).append("`");
+            others.append("?");
         }
-        built.append(") VALUES(");
-
-        first = true;
-        for(int i=data.size(); i > 0; i--) {
-            if (first)
-                first = false;
-            else
-                built.append(",");
-            built.append("?");
-        }
-        built.append(");");
+        built.append(") VALUES(").append(others.toString()).append(");");
 
         PreparedStatement statement = connection.prepareStatement(built.toString());
 
+        Object[] dataToArray = data.values().toArray();
+
         for(int i=0; i < data.size(); i++) {
-            Object value = data.values().toArray()[i];
+            Object value = dataToArray[i];
             statement.setObject(i+1, value);
         }
 
         return statement;
     }
 
-    public static String newUpdateQuery(Query query, Statement statement) {
+    public static Statement newUpdateQuery(Query query, Object primaryKey, Connection connection) throws SQLException {
         if(!query.checkFormation()) return null;
 
         Map<String, Object> data = query.getData();
@@ -89,12 +84,21 @@ public interface QueryStringBuilder {
             else
                 built.append(",");
 
-            built.append("`").append(query.getModel().getColumns().get(column).getColumnName()).append("` = ?");
+            built.append("`").append(query.getModel().getColumns().get(column).getColumnName()).append("` = ? ");
         }
+        built.append("WHERE ").append(query.getModel().getPrimaryKeyName()).append(" = ?;");
 
-        built.append("WHERE ").append(query.getModel().getPrimaryKeyName()).append(" = %s;");
+        PreparedStatement statement = connection.prepareStatement(built.toString());
 
-        return built.toString();
+        Object[] dataToArray = data.values().toArray();
+
+        for(int i=0; i < data.size(); i++) {
+            Object value = dataToArray[i];
+            statement.setObject(i+1, value);
+        }
+        statement.setObject(data.size()+1, primaryKey);
+
+        return statement;
     }
 
     public static String newLoadQuery(QueryModel model) {
