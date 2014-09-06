@@ -2,7 +2,7 @@ package org.jumbo.frontend.network;
 
 import com.google.inject.AbstractModule;
 import org.jumbo.backend.network.GameNetworkService;
-import org.jumbo.commons.nio.NetworkService;
+import org.jumbo.api.network.NetworkService;
 import org.jumbo.utils.annotations.GameNetwork;
 import org.jumbo.utils.annotations.LoginNetwork;
 

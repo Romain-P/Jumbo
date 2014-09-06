@@ -2,7 +2,7 @@ package org.jumbo.commons.nio.services;
 
 import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
-import org.jumbo.commons.nio.NetworkService;
+import org.jumbo.api.network.NetworkService;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

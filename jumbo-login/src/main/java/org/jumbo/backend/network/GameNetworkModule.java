@@ -1,7 +1,7 @@
 package org.jumbo.backend.network;
 
 import com.google.inject.AbstractModule;
-import org.jumbo.commons.nio.NetworkService;
+import org.jumbo.api.network.NetworkService;
 import org.jumbo.utils.annotations.GameNetwork;
 
 /**

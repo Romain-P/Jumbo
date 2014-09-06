@@ -1,4 +1,4 @@
-package org.jumbo.commons.nio;
+package org.jumbo.api.network;
 
 import org.apache.mina.core.service.IoService;
 

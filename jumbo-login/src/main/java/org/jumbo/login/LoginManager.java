@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.typesafe.config.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.jumbo.api.database.DatabaseService;
-import org.jumbo.commons.nio.NetworkService;
+import org.jumbo.api.network.NetworkService;
 import org.jumbo.utils.annotations.GameNetwork;
 import org.jumbo.utils.annotations.LoginNetwork;
 
