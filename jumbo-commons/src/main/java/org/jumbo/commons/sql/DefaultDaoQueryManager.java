@@ -1,13 +1,12 @@
 package org.jumbo.commons.sql;
 
 import com.google.inject.Inject;
-import org.jumbo.api.database.DAO;
 import org.jumbo.api.database.DaoQueryManager;
 import org.jumbo.api.database.DatabaseService;
 import org.jumbo.api.database.model.Query;
 import org.jumbo.api.database.model.QueryModel;
+import org.jumbo.api.database.model.builders.PreparedStatementBuilder;
 import org.jumbo.api.database.model.builders.QueryObjectBuilder;
-import org.jumbo.api.database.model.builders.QueryStringBuilder;
 import org.jumbo.api.database.model.enums.OnlyExecuteQueryEnum;
 
 import java.sql.*;
@@ -33,7 +32,7 @@ public abstract class DefaultDaoQueryManager<T> extends DaoQueryManager<T> {
 
         try {
             database.getConnection().setAutoCommit(false);
-            PreparedStatement statement = QueryStringBuilder.newQuery(query, type, database.getConnection());
+            PreparedStatement statement = PreparedStatementBuilder.newQuery(query, type, database.getConnection());
             statement.execute();
             statement.close();
             database.getConnection().commit();
@@ -53,7 +52,7 @@ public abstract class DefaultDaoQueryManager<T> extends DaoQueryManager<T> {
         Query query = null;
         try {
             database.getConnection().setAutoCommit(false);
-            PreparedStatement statement = QueryStringBuilder.newLoadQuery(model, primary, database.getConnection());
+            PreparedStatement statement = PreparedStatementBuilder.newLoadQuery(model, primary, database.getConnection());
             resultSet = statement.executeQuery();
             database.getConnection().commit();
 

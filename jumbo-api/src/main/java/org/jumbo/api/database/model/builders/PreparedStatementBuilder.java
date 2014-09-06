@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Created by Return on 06/09/2014.
  */
-public interface QueryStringBuilder {
+public interface PreparedStatementBuilder {
     public static PreparedStatement newQuery(Query query, OnlyExecuteQueryEnum type, Connection connection) throws SQLException {
         Object primary = query.getData().get(query.getModel().getPrimaryKeyName());
 
