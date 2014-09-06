@@ -6,8 +6,8 @@ import org.jumbo.api.database.model.enums.OnlyExecuteQueryEnum;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Map;
 
 /**
@@ -16,23 +16,17 @@ import java.util.Map;
 public interface QueryStringBuilder {
     public static PreparedStatement newQuery(Query query, OnlyExecuteQueryEnum type, Connection connection) throws SQLException {
         Object primary = query.getData().get(query.getModel().getPrimaryKeyName());
-        Object primaryKey = primary instanceof String ? "'"+primary+"'" :  primary;
 
         switch(type) {
             case CREATE:
                 return newCreateQuery(query, connection);
             case UPDATE:
-                return newUpdateQuery(query, primaryKey, connection);
+                return newUpdateQuery(query, primary, connection);
             case DELETE:
-                return String.format(newDeleteQuery(query.getModel()), connection, primaryKey);
+                return newDeleteQuery(query.getModel(), primary, connection);
             default:
                 return null;
         }
-    }
-
-    public static String newQuery(QueryModel model, Object primary) {
-        Object primaryKey = primary instanceof String ? "'"+primary+"'" : primary;
-        return String.format(newLoadQuery(model), primaryKey);
     }
 
     public static PreparedStatement newCreateQuery(Query query, Connection connection) throws SQLException {
@@ -101,17 +95,23 @@ public interface QueryStringBuilder {
         return statement;
     }
 
-    public static String newLoadQuery(QueryModel model) {
-        String updateQuery = "SELECT * FROM "+model.getTableName() +
-                " WHERE "+model.getPrimaryKeyName()+" = %s;";
+    public static PreparedStatement newLoadQuery(QueryModel model, Object primaryKey, Connection connection) throws SQLException {
+        String query = "SELECT * FROM "+model.getTableName() +
+                " WHERE "+model.getPrimaryKeyName()+" = ?;";
 
-        return updateQuery;
+        PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        statement.setObject(1, primaryKey);
+
+        return statement;
     }
 
-    public static String newDeleteQuery(QueryModel model) {
-        String updateQuery = "DELETE FROM "+model.getTableName() +
-                " WHERE "+model.getPrimaryKeyName()+" = %s;";
+    public static PreparedStatement newDeleteQuery(QueryModel model, Object primaryKey, Connection connection) throws SQLException {
+        String query = "DELETE FROM "+model.getTableName() +
+                " WHERE "+model.getPrimaryKeyName()+" = ?;";
 
-        return updateQuery;
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setObject(1, primaryKey);
+
+        return statement;
     }
 }

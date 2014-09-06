@@ -53,9 +53,8 @@ public abstract class DefaultDaoQueryManager<T> extends DaoQueryManager<T> {
         Query query = null;
         try {
             database.getConnection().setAutoCommit(false);
-            resultSet = database.getConnection().createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery(QueryStringBuilder.newQuery(model, primary));
+            PreparedStatement statement = QueryStringBuilder.newLoadQuery(model, primary, database.getConnection());
+            resultSet = statement.executeQuery();
             database.getConnection().commit();
 
             query = QueryObjectBuilder.newQuery(model, resultSet);
