@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by Return on 06/09/2014.
  */
 public interface QueryStringBuilder {
-    public static Statement newQuery(Query query, OnlyExecuteQueryEnum type, Connection connection) throws SQLException {
+    public static PreparedStatement newQuery(Query query, OnlyExecuteQueryEnum type, Connection connection) throws SQLException {
         Object primary = query.getData().get(query.getModel().getPrimaryKeyName());
         Object primaryKey = primary instanceof String ? "'"+primary+"'" :  primary;
 
@@ -35,7 +35,7 @@ public interface QueryStringBuilder {
         return String.format(newLoadQuery(model), primaryKey);
     }
 
-    public static Statement newCreateQuery(Query query, Connection connection) throws SQLException {
+    public static PreparedStatement newCreateQuery(Query query, Connection connection) throws SQLException {
         if(!query.checkFormation()) return null;
 
         Map<String, Object> data = query.getData();
@@ -69,7 +69,7 @@ public interface QueryStringBuilder {
         return statement;
     }
 
-    public static Statement newUpdateQuery(Query query, Object primaryKey, Connection connection) throws SQLException {
+    public static PreparedStatement newUpdateQuery(Query query, Object primaryKey, Connection connection) throws SQLException {
         if(!query.checkFormation()) return null;
 
         Map<String, Object> data = query.getData();

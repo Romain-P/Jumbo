@@ -33,8 +33,8 @@ public abstract class DefaultDaoQueryManager<T> extends DaoQueryManager<T> {
 
         try {
             database.getConnection().setAutoCommit(false);
-            Statement statement = database.getConnection().createStatement();
-            statement.execute(QueryStringBuilder.newQuery(query, type));
+            PreparedStatement statement = QueryStringBuilder.newQuery(query, type, database.getConnection());
+            statement.execute();
             statement.close();
             database.getConnection().commit();
         } catch (SQLException exception) {
