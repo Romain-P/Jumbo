@@ -1,24 +1,26 @@
 package org.jumbo.commons.sql;
 
 import com.google.inject.Inject;
-import org.jumbo.api.login.database.DatabaseService;
-import org.jumbo.commons.sql.model.Query;
-import org.jumbo.commons.sql.model.QueryModel;
-import org.jumbo.commons.sql.model.builders.QueryObjectBuilder;
-import org.jumbo.commons.sql.model.enums.OnlyExecuteQueryEnum;
-import org.jumbo.commons.sql.model.builders.QueryStringBuilder;
+import org.jumbo.api.database.DAO;
+import org.jumbo.api.database.DaoQueryManager;
+import org.jumbo.api.database.DatabaseService;
+import org.jumbo.api.database.model.Query;
+import org.jumbo.api.database.model.QueryModel;
+import org.jumbo.api.database.model.builders.QueryObjectBuilder;
+import org.jumbo.api.database.model.builders.QueryStringBuilder;
+import org.jumbo.api.database.model.enums.OnlyExecuteQueryEnum;
 
 import java.sql.*;
 
 /**
  * Created by Return on 03/09/2014.
  */
-public abstract class QueryManager<T> implements DAO<T> {
+public abstract class DefaultDaoQueryManager<T> extends DaoQueryManager<T> {
     protected QueryModel model;
     @Inject
     DatabaseService database;
 
-    public QueryManager(QueryModel model) {
+    public DefaultDaoQueryManager(QueryModel model) {
         this.model = model;
     }
 

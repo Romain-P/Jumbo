@@ -1,4 +1,6 @@
 dependencies {
-    compile "org.apache.mina:mina-core:$mina"
-    compile "com.typesafe:config:$config"
+    provided "org.apache.mina:mina-core:$mina"
+    provided "com.typesafe:config:$config"
+
+    provided project(':jumbo-api')
 }

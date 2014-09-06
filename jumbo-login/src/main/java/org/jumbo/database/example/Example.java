@@ -2,9 +2,9 @@ package org.jumbo.database.example;
 
 import com.google.inject.Inject;
 import lombok.Getter;
-import org.jumbo.api.login.database.DatabaseService;
-import org.jumbo.commons.sql.model.annotations.PrimaryQueryField;
-import org.jumbo.commons.sql.model.annotations.QueryField;
+import org.jumbo.api.database.DatabaseService;
+import org.jumbo.api.database.model.annotations.PrimaryQueryField;
+import org.jumbo.api.database.model.annotations.QueryField;
 
 /**
  * Created by Return on 03/09/2014.

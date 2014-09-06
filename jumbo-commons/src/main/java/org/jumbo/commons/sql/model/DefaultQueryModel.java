@@ -1,8 +1,11 @@
 package org.jumbo.commons.sql.model;
 
 import lombok.Getter;
-import org.jumbo.commons.sql.model.annotations.PrimaryQueryField;
-import org.jumbo.commons.sql.model.annotations.QueryField;
+import org.jumbo.api.database.model.Query;
+import org.jumbo.api.database.model.QueryColumn;
+import org.jumbo.api.database.model.QueryModel;
+import org.jumbo.api.database.model.annotations.PrimaryQueryField;
+import org.jumbo.api.database.model.annotations.QueryField;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -10,7 +13,7 @@ import java.util.*;
 /**
  * Created by Return on 03/09/2014.
  */
-public abstract class QueryModel<T> {
+public abstract class DefaultQueryModel<T> implements QueryModel<T> {
     @Getter
     private final String tableName;
     @Getter
@@ -19,15 +22,13 @@ public abstract class QueryModel<T> {
     @Getter
     private final Map<String, QueryColumn> columns;
 
-    public QueryModel(String tableName, T schema) {
+    public DefaultQueryModel(String tableName, T schema) {
         this.tableName = tableName;
         this.schema = schema;
         this.columns = new HashMap<>();
     }
 
-    public abstract Map<String, String> getColumnModel();
-
-    public QueryModel schematize() {
+    public QueryModel<T> schematize() {
         for(Field field: schema.getClass().getDeclaredFields()) {
             boolean primary = false;
 
@@ -38,14 +39,14 @@ public abstract class QueryModel<T> {
 
             if(field.isAnnotationPresent(QueryField.class) || primary) {
                 String fieldName = field.getName();
-                columns.put(fieldName, new QueryColumn(fieldName, getColumnModel().get(fieldName), field.getType()));
+                columns.put(fieldName, new DefaultQueryColumn(fieldName, getColumnModel().get(fieldName), field.getType()));
             }
         }
         return this;
     }
 
     public Query createNewQuery() {
-        Query query = new Query(this);
+        Query query = new DefaultQuery(this);
         return query;
     }
 }

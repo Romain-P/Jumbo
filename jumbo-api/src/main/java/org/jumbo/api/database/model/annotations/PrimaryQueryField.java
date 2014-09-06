@@ -1,4 +1,4 @@
-package org.jumbo.commons.sql.model.annotations;
+package org.jumbo.api.database.model.annotations;
 
 import com.google.inject.BindingAnnotation;
 
@@ -13,4 +13,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @BindingAnnotation
 @Target(ElementType.FIELD)
-public @interface QueryField {}
+public @interface PrimaryQueryField {}

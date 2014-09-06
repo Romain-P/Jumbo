@@ -1,10 +1,10 @@
 package org.jumbo.database.example;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jumbo.api.database.model.Query;
+import org.jumbo.api.database.model.enums.OnlyExecuteQueryEnum;
+import org.jumbo.commons.sql.DefaultDaoQueryManager;
 import org.jumbo.database.models.ExampleModel;
-import org.jumbo.commons.sql.QueryManager;
-import org.jumbo.commons.sql.model.Query;
-import org.jumbo.commons.sql.model.enums.OnlyExecuteQueryEnum;
 
 import java.sql.SQLException;
 
@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * Created by Return on 03/09/2014.
  */
 @Slf4j
-public class ExampleManager extends QueryManager<Example> {
+public class ExampleManager extends DefaultDaoQueryManager<Example> {
     public ExampleManager() {
         super(new ExampleModel().schematize());
     }

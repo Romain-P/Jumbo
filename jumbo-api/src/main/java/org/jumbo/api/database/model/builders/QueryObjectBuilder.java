@@ -1,15 +1,15 @@
-package org.jumbo.commons.sql.model.builders;
+package org.jumbo.api.database.model.builders;
 
-import org.jumbo.commons.sql.model.Query;
-import org.jumbo.commons.sql.model.QueryModel;
+import org.jumbo.api.database.model.Query;
+import org.jumbo.api.database.model.QueryModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Return on 03/09/2014.
+ * Created by Return on 06/09/2014.
  */
-public class QueryObjectBuilder {
+public interface QueryObjectBuilder {
     public static Query newQuery(QueryModel<?> model, ResultSet result) throws SQLException {
         Query query = model.createNewQuery();
 

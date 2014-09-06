@@ -3,8 +3,9 @@ package org.jumbo.database;
 import com.google.inject.Inject;
 import com.typesafe.config.Config;
 import lombok.Getter;
-import org.jumbo.api.login.database.DatabaseService;
-import org.jumbo.commons.sql.QueryManager;
+import org.jumbo.api.database.DaoQueryManager;
+import org.jumbo.api.database.DatabaseService;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,12 +23,12 @@ public class LoginDatabaseService implements DatabaseService {
     @Getter
     private Connection connection;
     @Getter
-    private Map<Class, QueryManager> queryManagers;
+    private Map<Class, DaoQueryManager> queryManagers;
 
     @Inject
     Config config;
     @Inject
-    Set<QueryManager> managers;
+    Set<DaoQueryManager> managers;
 
     public LoginDatabaseService() {
         this.locker = new ReentrantLock();
@@ -44,7 +45,7 @@ public class LoginDatabaseService implements DatabaseService {
         if (!connection.isValid(1000)) return null;
         connection.setAutoCommit(true);
 
-        for(QueryManager manager: managers)
+        for(DaoQueryManager manager: managers)
             queryManagers.put(manager.getClass(), manager);
         return this;
     }

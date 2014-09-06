@@ -1,4 +1,4 @@
-package org.jumbo.commons.sql.model.enums;
+package org.jumbo.api.database.model.enums;
 
 /**
  * Created by Return on 03/09/2014.

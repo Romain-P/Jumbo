@@ -1,8 +1,10 @@
 package org.jumbo.commons.sql.model;
 
 import lombok.Getter;
-import org.jumbo.commons.sql.exceptions.BadPutFieldTypeException;
-import org.jumbo.commons.sql.exceptions.BadQueryFormationException;
+import org.jumbo.api.database.model.Query;
+import org.jumbo.api.database.model.QueryModel;
+import org.jumbo.api.database.model.exceptions.BadPutFieldTypeException;
+import org.jumbo.api.database.model.exceptions.BadQueryFormationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,13 +12,13 @@ import java.util.Map;
 /**
  * Created by Return on 03/09/2014.
  */
-public class Query {
+public class DefaultQuery implements Query{
     @Getter
     private final Map<String, Object> data;
     @Getter
     private final QueryModel<?> model;
 
-    public Query(QueryModel model) {
+    public DefaultQuery(DefaultQueryModel model) {
         this.model = model;
         this.data = new HashMap<>();
     }

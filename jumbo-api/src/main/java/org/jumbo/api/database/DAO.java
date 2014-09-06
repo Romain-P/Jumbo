@@ -1,4 +1,4 @@
-package org.jumbo.commons.sql;
+package org.jumbo.api.database;
 
 /**
  * Created by Return on 03/09/2014.

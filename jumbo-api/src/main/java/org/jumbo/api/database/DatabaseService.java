@@ -1,6 +1,4 @@
-package org.jumbo.api.login.database;
-
-import org.jumbo.commons.sql.QueryManager;
+package org.jumbo.api.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public interface DatabaseService {
     public Connection getConnection();
     public ReentrantLock getLocker();
-    public Map<Class, QueryManager> getQueryManagers();
+    public Map<Class, DaoQueryManager> getQueryManagers();
 
     public DatabaseService start() throws SQLException;
     public void stop();

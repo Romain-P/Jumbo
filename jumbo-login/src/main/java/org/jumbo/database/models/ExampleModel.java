@@ -1,7 +1,7 @@
 package org.jumbo.database.models;
 
 import org.jumbo.database.example.Example;
-import org.jumbo.commons.sql.model.QueryModel;
+import org.jumbo.commons.sql.model.DefaultQueryModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by Return on 03/09/2014.
  */
-public class ExampleModel extends QueryModel<Example>{
+public class ExampleModel extends DefaultQueryModel<Example> {
     public ExampleModel() {
         super("accounts", new Example());
     }

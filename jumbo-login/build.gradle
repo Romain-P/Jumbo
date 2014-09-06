@@ -5,6 +5,8 @@ dependencies {
     compile "com.github.blackrush.acara:acara-core:$acara"
     compile "com.typesafe:config:$config"
     compile "org.apache.mina:mina-core:$mina"
+    compile "mysql:mysql-connector-java:$mysql"
+
     compile project(':jumbo-commons')
     compile project(':jumbo-api')
 }

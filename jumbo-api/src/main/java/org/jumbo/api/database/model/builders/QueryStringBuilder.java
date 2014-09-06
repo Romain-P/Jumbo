@@ -1,17 +1,16 @@
-package org.jumbo.commons.sql.model.builders;
+package org.jumbo.api.database.model.builders;
 
-import org.jumbo.commons.sql.exceptions.BadQueryFormationException;
-import org.jumbo.commons.sql.model.Query;
-import org.jumbo.commons.sql.model.QueryModel;
-import org.jumbo.commons.sql.model.enums.OnlyExecuteQueryEnum;
+import org.jumbo.api.database.model.Query;
+import org.jumbo.api.database.model.QueryModel;
+import org.jumbo.api.database.model.enums.OnlyExecuteQueryEnum;
+import org.jumbo.api.database.model.exceptions.BadQueryFormationException;
 
 import java.util.Map;
 
 /**
- * Created by Return on 03/09/2014.
+ * Created by Return on 06/09/2014.
  */
-public class QueryStringBuilder {
-
+public interface QueryStringBuilder {
     public static String newQuery(Query query, OnlyExecuteQueryEnum type) throws BadQueryFormationException {
         Object primary = query.getData().get(query.getModel().getPrimaryKeyName());
         Object primaryKey = primary instanceof String ? "'"+primary+"'" :  primary;
@@ -33,7 +32,7 @@ public class QueryStringBuilder {
         return String.format(newLoadQuery(model), primaryKey);
     }
 
-    private static String newCreateQuery(Query query) throws BadQueryFormationException {
+    public static String newCreateQuery(Query query) throws BadQueryFormationException {
         if(!query.checkFormation()) return null;
 
         Map<String, Object> data = query.getData();
@@ -58,7 +57,7 @@ public class QueryStringBuilder {
         return built.toString();
     }
 
-    private static String newUpdateQuery(Query query) throws BadQueryFormationException {
+    public static String newUpdateQuery(Query query) throws BadQueryFormationException {
         if(!query.checkFormation()) return null;
 
         Map<String, Object> data = query.getData();
@@ -87,14 +86,14 @@ public class QueryStringBuilder {
         return built.toString();
     }
 
-    private static String newLoadQuery(QueryModel model) {
+    public static String newLoadQuery(QueryModel model) {
         String updateQuery = "SELECT * FROM "+model.getTableName() +
                 " WHERE "+model.getPrimaryKeyName()+" = %s;";
 
         return updateQuery;
     }
 
-    private static String newDeleteQuery(QueryModel model) {
+    public static String newDeleteQuery(QueryModel model) {
         String updateQuery = "DELETE FROM "+model.getTableName() +
                 " WHERE "+model.getPrimaryKeyName()+" = %s;";
 

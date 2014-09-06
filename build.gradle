@@ -12,6 +12,7 @@ allprojects {
     ext.mina = '2.0.7'
     ext.acara = '1.3'
     ext.config = '1.0.2'
+    ext.mysql = '5.1.6'
 
     configurations {
         provided
