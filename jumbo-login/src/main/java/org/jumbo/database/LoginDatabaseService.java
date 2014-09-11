@@ -3,6 +3,7 @@ package org.jumbo.database;
 import com.google.inject.Inject;
 import com.typesafe.config.Config;
 import lombok.Getter;
+import org.jumbo.api.database.DAO;
 import org.jumbo.api.database.DaoQueryManager;
 import org.jumbo.api.database.DatabaseService;
 
@@ -44,6 +45,8 @@ public class LoginDatabaseService implements DatabaseService {
         );
         if (!connection.isValid(1000)) return null;
         connection.setAutoCommit(true);
+
+        queryManagers.get(DAO.class);
 
         for(DaoQueryManager manager: managers)
             queryManagers.put(manager.getClass(), manager);

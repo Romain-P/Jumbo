@@ -13,4 +13,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @BindingAnnotation
 @Target(ElementType.FIELD)
-public @interface PrimaryQueryField {}
+public @interface PrimaryQueryField {
+}
