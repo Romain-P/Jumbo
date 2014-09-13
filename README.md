@@ -3,10 +3,11 @@ Jumbo
 
 ### What is it ?
 Jumbo is a 1.29 dofus emulator, developed in Java.
-He's supported by gradle and is separated in 4 projects
+He's supported by gradle and is separated in 5 projects
 
  * **Jumbo-api** : contains all interfaces (will be util for plugins/scripts)
  * **Jumbo-commons** : contains all utils class
+ * **Jumbo-protocol** : contains the protocol & messages
  * **Jumbo-Login** : is the login server, manages connections
  * **Jumbo-Game** : is the game server, manages the in-game
 
@@ -15,8 +16,6 @@ He's supported by gradle and is separated in 4 projects
 Jumbo contains a lot of util dependencies
 
  * **Guice** by google: for dependency injections
- * **Acara** by blackrush: for manages events
- * **Rocket** by blackrush: for manages messages
  * **Mina** by Apache: for the network
  * **MySQL-Connector** by Apache: for JDBC mysql
  * **Slf4j & Logback** for loggers
